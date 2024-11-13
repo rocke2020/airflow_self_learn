@@ -1,4 +1,3 @@
-
 import textwrap
 from datetime import datetime, timedelta
 
@@ -7,6 +6,7 @@ from airflow.models.dag import DAG
 
 # Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
+
 with DAG(
     "tutorial",
     # These args will get passed on to each operator
@@ -62,7 +62,9 @@ with DAG(
     """
     )
 
-    dag.doc_md = __doc__  # providing that you have a docstring at the beginning of the DAG; OR
+    dag.doc_md = (
+        __doc__  # providing that you have a docstring at the beginning of the DAG; OR
+    )
     dag.doc_md = """
     This is a documentation placed anywhere
     """  # otherwise, type it like this
@@ -82,3 +84,7 @@ with DAG(
     )
 
     t1 >> [t2, t3]
+
+
+with DAG("my_daily_dag", schedule="0 0 * * *"):
+    ...

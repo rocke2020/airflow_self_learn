@@ -1,7 +1,7 @@
 import json
 
 import pendulum
-
+from pathlib import Path
 from airflow.decorators import dag, task
 
 
@@ -45,7 +45,10 @@ def tutorial_taskflow_api():
 
         for value in order_data_dict.values():
             total_order_value += value
-
+        Path(tmp).mkdir(parents=True, exist_ok=True)
+        file = "/tmp/total_order_value.txt"
+        with open(file, "a", encoding="utf-8") as f:
+            f.write(f"Total order value is: {total_order_value:.2f}\n")
         return {"total_order_value": total_order_value}
 
     @task()
